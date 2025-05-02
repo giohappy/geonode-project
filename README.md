@@ -1,4 +1,4 @@
-# Minimal Geonode Project
+# Minimal GeoNode Project
 
  Generate the .env file
 
