@@ -108,7 +108,7 @@ services:
       - "8000:8000"
     volumes:
     - './src:/usr/src/${COMPOSE_PROJECT_NAME}'
-    - '.devcontainer/.vscode:/usr/src/.vscode'
+    - './.devcontainer/.vscode:/usr/src/.vscode'
     - statics:/mnt/volumes/statics
     - geoserver-data-dir:/geoserver_data/data
     - backup-restore:/backup_restore
