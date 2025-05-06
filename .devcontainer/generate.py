@@ -6,7 +6,8 @@ from pathlib import Path
 
 jenv = jinja2.Environment()
 
-launch_template = jenv.from_string("""
+launch_template = jenv.from_string(
+"""
 {
     "version": "0.2.0",
     "configurations": [
@@ -25,7 +26,24 @@ launch_template = jenv.from_string("""
         }
     ]
 }
-""")
+"""
+)
+
+workspace_template = jenv.from_string(
+"""
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../local/lib/python3.10/dist-packages"
+		}
+	],
+	"settings": {}
+}
+"""
+)
 
 devcontainer_template = jenv.from_string(
 """
@@ -131,6 +149,8 @@ def render(project):
     Path(".vscode").mkdir(exist_ok=True)
     with open(".vscode/launch.json","w") as fout:
         fout.write(launch_template.render(project=project))
+    with open(".vscode/src.code-workspace.json","w") as fout:
+        fout.write(workspace_template.render(project=project))
     with open("devcontainer.json","w") as fout:
         fout.write(devcontainer_template.render(project=project))
     with open("docker-compose.yml","w") as fout:

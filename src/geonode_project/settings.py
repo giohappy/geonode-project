@@ -24,7 +24,7 @@ import ast
 
 # Load more settings from a file called local_settings.py if it exists
 try:
-    from geonode_platform.local_settings import *
+    from geonode_project.local_settings import *
 #    from geonode.local_settings import *
 except ImportError:
     from geonode.settings import *
@@ -32,13 +32,13 @@ except ImportError:
 #
 # General Django development settings
 #
-PROJECT_NAME = "geonode_platform"
+PROJECT_NAME = "geonode_project"
 
 # add trailing slash to site url. geoserver url will be relative to this
 if not SITEURL.endswith("/"):
     SITEURL = "{}/".format(SITEURL)
 
-SITENAME = os.getenv("SITENAME", "geonode_platform")
+SITENAME = os.getenv("SITENAME", "geonode_project")
 
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
@@ -72,3 +72,6 @@ loaders = TEMPLATES[0]["OPTIONS"].get("loaders") or [
 # loaders.insert(0, 'apptemplates.Loader')
 TEMPLATES[0]["OPTIONS"]["loaders"] = loaders
 TEMPLATES[0].pop("APP_DIRS", None)
+
+
+DEBUG = True

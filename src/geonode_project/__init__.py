@@ -23,10 +23,10 @@ import os
 __version__ = (4, 2, 0, "dev", 0)
 
 
-default_app_config = "geonode_platform.apps.AppConfig"
+default_app_config = "geonode_project.apps.AppConfig"
 
 
 def get_version():
-    import geonode_platform.version
+    import geonode_project.version
 
-    return geonode_platform.version.get_version(__version__)
+    return geonode_project.version.get_version(__version__)

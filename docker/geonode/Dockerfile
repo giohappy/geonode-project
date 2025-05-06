@@ -1,18 +1,11 @@
-FROM geonode/geonode-base:latest-ubuntu-22.04
+FROM giohappy/geonode-base:latest-ubuntu-22.04
 LABEL GeoNode development team
 
-RUN mkdir -p /usr/src/geonode_platform
-
-RUN apt-get update -y && apt-get install curl wget unzip gnupg2 locales -y
-
-RUN sed -i -e 's/# C.UTF-8 UTF-8/C.UTF-8 UTF-8/' /etc/locale.gen && \
-    locale-gen
-ENV LC_ALL C.UTF-8
-ENV LANG C.UTF-8
+RUN mkdir -p /usr/src/geonode_project
 
 # add bower and grunt command
-COPY src /usr/src/geonode_platform/
-WORKDIR /usr/src/geonode_platform
+COPY src /usr/src/geonode_project/
+WORKDIR /usr/src/geonode_project
 
 #COPY src/monitoring-cron /etc/cron.d/monitoring-cron
 #RUN chmod 0644 /etc/cron.d/monitoring-cron
@@ -22,8 +15,8 @@ WORKDIR /usr/src/geonode_platform
 
 COPY src/wait-for-databases.sh /usr/bin/wait-for-databases
 RUN chmod +x /usr/bin/wait-for-databases
-RUN chmod +x /usr/src/geonode_platform/tasks.py \
-    && chmod +x /usr/src/geonode_platform/entrypoint.sh
+RUN chmod +x /usr/src/geonode_project/tasks.py \
+    && chmod +x /usr/src/geonode_project/entrypoint.sh
 
 COPY src/celery-cmd /usr/bin/celery-cmd
 RUN chmod +x /usr/bin/celery-cmd
@@ -34,8 +27,7 @@ RUN chmod +x /usr/bin/celery-cmd
 # RUN cd /usr/src/geonode-contribs/geonode-logstash; pip install --upgrade  -e . \
 #     cd /usr/src/geonode-contribs/ldap; pip install --upgrade  -e .
 
-RUN yes w | pip install --src /usr/src -r requirements.txt &&\
-    yes w | pip install -e .
+RUN yes w | pip install --src /usr/src -r requirements.txt
 
 # Cleanup apt update lists
 RUN apt-get autoremove --purge &&\
@@ -46,4 +38,4 @@ RUN apt-get autoremove --purge &&\
 EXPOSE 8000
 
 # We provide no command or entrypoint as this image can be used to serve the django project or run celery tasks
-# ENTRYPOINT /usr/src/geonode_platform/entrypoint.sh
+# ENTRYPOINT /usr/src/geonode_project/entrypoint.sh

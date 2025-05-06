@@ -1,1 +1,1 @@
-# geonode_platform
+# geonode_project

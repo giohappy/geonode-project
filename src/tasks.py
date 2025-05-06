@@ -387,6 +387,11 @@ def fixtures(ctx):
         pty=True,
     )
     ctx.run(
+        f"python manage.py loaddata admin_interface_theme_geonode.json \
+--settings={_localsettings()}",
+        pty=True,
+    )
+    ctx.run(
         f"python manage.py loaddata /tmp/default_oauth_apps_docker.json \
 --settings={_localsettings()}",
         pty=True,
@@ -566,7 +571,7 @@ def _update_geodb_connstring():
 
 
 def _localsettings():
-    settings = os.getenv("DJANGO_SETTINGS_MODULE", "geonode_platform.settings")
+    settings = os.getenv("DJANGO_SETTINGS_MODULE", "geonode_project.settings")
     return settings
 
 

@@ -9,7 +9,7 @@ invoke () {
     then
         /usr/local/bin/invoke $@
     else
-        /usr/local/bin/invoke $@ > /usr/src/geonode_platform/invoke.log 2>&1
+        /usr/local/bin/invoke $@ > /usr/src/geonode_project/invoke.log 2>&1
     fi
     echo "$@ tasks done"
 }
